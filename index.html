@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    :root {
+      --azul-eja: #1c3eb8;
+      --amarelo-eja: #fdda16;
+      --verde-eja: #00a046;
+    }
+
+    body { background-color: #f4f7f6; padding: 20px; font-family: sans-serif; }
+    
+    .container-form { 
+      background: #ffffff; 
+      padding: 0 0 40px 0; /* Removido padding superior para a imagem encostar no topo */
+      border-radius: 12px; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+      max-width: 850px; 
+      margin: auto; 
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Estilo da Imagem do Topo */
+    .banner-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .form-content-padding {
+      padding: 0 40px;
+    }
+
+    .color-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 10px;
+      background: linear-gradient(90deg, var(--verde-eja) 33%, var(--amarelo-eja) 33%, var(--amarelo-eja) 66%, var(--azul-eja) 66%);
+      z-index: 10;
+    }
+
+    .title { color: var(--azul-eja) !important; font-weight: bold; line-height: 1.4; margin-top: 20px; }
+    
+    .instrucoes { 
+      border-left: 5px solid var(--amarelo-eja); 
+      padding: 20px; 
+      background: #fffdf2; 
+      margin-bottom: 30px; 
+      font-size: 0.95rem; 
+      line-height: 1.6; 
+      color: #333; 
+    }
+
+    .vagas-badget { font-weight: bold; padding: 4px 8px; border-radius: 4px; }
+    .esgotado { color: white; background: #ff3860; }
+    .disponivel { color: white; background: var(--verde-eja); }
+    
+    .lgpd-box { background: #fafafa; border: 1px solid #eee; padding: 15px; border-radius: 5px; font-size: 0.85rem; }
+    
+    .btn-custom {
+      background-color: var(--azul-eja);
+      color: white;
+      font-weight: bold;
+      border: none;
+      transition: background-color 0.3s;
+    }
+    .btn-custom:hover { background-color: var(--verde-eja); color: white; }
+    
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container-form">
+    <div class="color-bar"></div>
+    
+    <img src="https://lh3.googleusercontent.com/d/1fgE_okKw0-6Pv3dxblnCL6tt5_zTKTcQ" alt="Banner Inscrição" class="banner-img">
+    
+    <div class="form-content-padding">
+      <h1 class="title is-4 has-text-centered">FORMULÁRIO DE INSCRIÇÃO:<br>1º FÓRUM DE PARTILHA DE PRÁTICAS DA EJA - POLO 5 (OUVINTES)</h1>
+      
+      <div class="instrucoes">
+        <p><strong>Prezadas pessoas educadoras da EJA,</strong></p><br>
+        <p>O Fórum de Partilhas de Práticas da EJA - Polo 5 é um evento regional vinculado às Secretarias Municipais de Educação de Santo André, São Bernardo do Campo, Diadema, Mauá, Ribeirão Pires e Rio Grande da Serra, que ocorrerá em 17 e 19 de agosto, com o intuito de compartilhar experiências gestoras e pedagógicas com pessoas educandas da EJA. Em 17 de agosto, vão participar os profissionais do primeiro segmento da EJA; em 19 de agosto, os do segundo segmento. O local e o horário são os mesmos: o CENFORPE/Secretaria de Educação de São Bernardo do Campo (Av. Dom Jaime de Barros Câmara, 201 - Planalto, São Bernardo do Campo - SP), das 19h às 22h.</p><br>
+        <p>Para nós, sua participação é fundamental, porque, além de ampliar o repertório docente, fortalece a EJA em nossa região e testemunha a importância do Pacto Nacional pela Superação do Analfabetismo e Qualificação da EJA (MEC/Secadi).</p><br>
+        <p>A inscrição é obrigatória, uma vez que interfere na organização dos espaços e na distribuição dos participantes por data e sala.</p><br>
+        <p><strong>O prazo para as inscrições é de 04 a 08 de julho.</strong></p><br>
+        <p>Dúvidas podem ser enviadas para <strong>pactoejapolo5@gmail.com</strong>.</p><br>
+        <p>Contamos com a participação de tod@s!</p><br>
+        <p>Abraços cordiais,<br><strong>Comissão Organizadora</strong></p>
+      </div>
+
+      <form id="formularioInscricao" onsubmit="enviarFormulario(this)">
+        <div class="field">
+          <label class="label">Nome Completo</label>
+          <div class="control">
+            <input class="input" type="text" name="nome" placeholder="Digite seu nome completo" required>
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">CPF</label>
+              <div class="control">
+                <input class="input" type="text" name="cpf" id="cpfInput" placeholder="000.000.000-00" required>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">E-mail</label>
+              <div class="control">
+                <input class="input" type="email" name="email" placeholder="seu@email.com" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Secretaria Municipal em que trabalha</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select name="secretaria" id="secList" required><option value="">Carregando...</option></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Cargo/função</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select name="cargo" id="cargoList" required><option value="">Carregando...</option></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Data de participação</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select name="dataPart" id="dataList" required><option value="">Carregando...</option></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Eixo para ser ouvinte</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select name="eixo" id="eixoList" required onchange="validarVagas(this)">
+                <option value="">Carregando...</option>
+              </select>
+            </div>
+          </div>
+          <p id="msgVagas" class="help mt-2"></p>
+        </div>
+
+        <div class="lgpd-box mt-5">
+          <label class="checkbox">
+            <input type="checkbox" required> 
+            Estou ciente e autorizo a coleta do meu CPF exclusivamente para fins de emissão de certificados e identificação no evento, em conformidade com a <strong>LGPD (Lei Geral de Proteção de Dados)</strong>. Os dados não serão compartilhados com terceiros.
+          </label>
+        </div>
+
+        <div class="control mt-6">
+          <button type="submit" id="btnEnviar" class="button is-fullwidth is-large btn-custom">Finalizar Inscrição</button>
+        </div>
+      </form>
+
+      <div id="statusMsg" class="notification mt-5 hidden"></div>
+    </div>
+  </div>
+
+  <script>
+    let mapaVagas = {};
+    let scriptUrl = "";
+
+    window.onload = function() {
+      google.script.run.withSuccessHandler(url => scriptUrl = url).getScriptUrl();
+      google.script.run.withSuccessHandler(setupDropdowns).getFormData();
+    };
+
+    function setupDropdowns(data) {
+      const popular = (id, itens) => {
+        const el = document.getElementById(id);
+        el.innerHTML = '<option value="">Selecione uma opção...</option>';
+        itens.forEach(txt => el.add(new Option(txt, txt)));
+      };
+
+      popular('secList', data.listas.secretarias);
+      popular('cargoList', data.listas.cargos);
+      popular('dataList', data.listas.datas);
+      popular('eixoList', data.listas.eixos);
+      
+      mapaVagas = data.contagemEixos;
+    }
+
+    function validarVagas(select) {
+      const eixo = select.value;
+      const display = document.getElementById('msgVagas');
+      const btn = document.getElementById('btnEnviar');
+      
+      if (!eixo) { display.innerHTML = ""; return; }
+
+      const restantes = mapaVagas[eixo];
+      if (restantes <= 0) {
+        display.innerHTML = '<span class="vagas-badget esgotado">Vagas esgotadas para este eixo.</span>';
+        btn.disabled = true;
+      } else {
+        display.innerHTML = `<span class="vagas-badget disponivel">Vagas disponíveis: ${restantes}</span>`;
+        btn.disabled = false;
+      }
+    }
+
+    document.getElementById('cpfInput').addEventListener('input', function (e) {
+      let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
+      e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+    });
+
+    function enviarFormulario(form) {
+      event.preventDefault();
+      const btn = document.getElementById('btnEnviar');
+      const status = document.getElementById('statusMsg');
+      
+      btn.classList.add('is-loading');
+      status.classList.add('hidden');
+
+      google.script.run.withSuccessHandler(function(response) {
+        btn.classList.remove('is-loading');
+        status.innerText = response.msg;
+        status.classList.remove('hidden');
+        
+        if (response.sucesso) {
+          status.className = "notification is-success mt-5";
+          form.classList.add('hidden');
+          status.innerHTML += "<br><br><em>Atualizando página para uma nova inscrição...</em>";
+          
+          setTimeout(() => {
+            if(scriptUrl) {
+               window.top.location.href = scriptUrl;
+            } else {
+               window.location.reload();
+            }
+          }, 3500);
+
+        } else {
+          status.className = "notification is-danger mt-5";
+        }
+        window.scrollTo(0, document.body.scrollHeight);
+      }).processForm(form);
+    }
+  </script>
+</body>
+</html>
